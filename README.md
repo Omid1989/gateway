@@ -135,7 +135,14 @@ php artisan migrate
 
 try {
 
-   $gateway = \Gateway::make('mellat');
+   $gateway = \Gateway::make('mellat',
+           [ 
+          'username'     => 'username',
+          'password'     => '1111111111111111111111111111',
+          'terminalId'   => 0000000,
+          'callback-url' => '/'
+          ]
+        );
 
    $gateway->setCallback(url('/bank/response')); // You can also change the callback
    $gateway->price(1000)
