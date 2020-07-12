@@ -4,6 +4,7 @@ namespace Larabookir\Gateway;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use phpDocumentor\Reflection\Types\This;
 
 class GatewayServiceProviderLaravel6 extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class GatewayServiceProviderLaravel6 extends ServiceProvider
         ], 'views');
 
         //$this->mergeConfigFrom( $config,'gateway')
+
+
 	}
 
 	/**
@@ -54,9 +57,11 @@ class GatewayServiceProviderLaravel6 extends ServiceProvider
 	 */
 	public function register()
 	{
+
 		$this->app->singleton('gateway', function () {
 			return new GatewayResolver();
 		});
+
 
 	}
 }

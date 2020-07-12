@@ -29,9 +29,9 @@ class GatewayServiceProviderLaravel4 extends ServiceProvider
 
 
         // for laravel 4.2
-        $this->package('larabook/gateway',null,__DIR__.'/../');
-		
-		
+        $this->package('larabook/gateway',null, __DIR__ . '/gateway/');
+
+
 		if (
 			File::glob(base_path('/database/migrations/*create_gateway_status_log_table\.php'))
 			&& !File::exists(base_path('/database/migrations/2017_04_05_103357_alter_id_in_transactions_table.php'))

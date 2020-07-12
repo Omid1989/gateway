@@ -40,9 +40,18 @@ class GatewayResolver
 	 * @param null $config
 	 * @param null $port
 	 */
-	public function __construct($config = null, $port = null)
+	public function __construct($config = null, $port = null )
 	{
-		$this->config = app('config');
+
+
+        app()->singleton('ConfigPort',function (){
+            return new GatewayConfig();
+        });
+     	$this->config = app()->make('ConfigPort');
+
+
+
+
 		$this->request = app('request');
 
 		if ($this->config->has('gateway.timezone'))
@@ -51,6 +60,16 @@ class GatewayResolver
 		if (!is_null($port)) $this->make($port);
 	}
 
+    /**
+     * set config port from user
+     *
+     * @param $config
+     * @param $name
+     */
+	public  function   setConfig($config, $name)
+    {
+	    $this->config->SetConfig($config, $name);
+    }
 	/**
 	 * Get supported ports
 	 *
@@ -126,8 +145,10 @@ class GatewayResolver
 	 * @param int $port
 	 * @throws PortNotFoundException
 	 */
-	function make($port)
+	function make($port,$config=null)
     {
+
+
         if ($port InstanceOf Mellat) {
             $name = Enum::MELLAT;
         } elseif ($port InstanceOf Parsian) {
@@ -155,6 +176,14 @@ class GatewayResolver
             $port = new $class;
         } else
             throw new PortNotFoundException;
+
+        if($config!=null)
+            $this->config->SetConfig($config,strtolower($name));
+
+
+
+
+
 
         $this->port = $port;
         $this->port->setConfig($this->config); // injects config

@@ -197,7 +197,7 @@ class Sadad extends PortAbstract implements PortInterface
 			'en' => 'Unknown Error',
 			'retry' => false
 		);
-		
+
 
 		return $result;
 	}
